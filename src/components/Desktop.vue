@@ -18,7 +18,8 @@
      <!-- Start Menu Component -->
      <StartMenu ref="startMenu" />
 
-<!-- Taskbar / Footer -->
+<!-- Taskbar / Footer INSIDE SCREEN INNER -->
+<div class="screen-inner">
 <footer class="taskbar">
   <div class="left-side">
     <button @click="toggleStart">🪟 Start</button>
@@ -38,7 +39,7 @@
 
    <!-- Project Modal (Folder View) -->
    <ProjectModal ref="projectModal" :folderName="'Projects'" :projects="projectList" />
-
+  </div>
 </template>
   
   <script setup>
@@ -46,6 +47,14 @@
 import { ref } from 'vue'
 import StartMenu from './StartMenu.vue'
 import ProjectModal from './ProjectModal.vue'
+
+import clonifyIcon from '@/assets/project-icons/Clonify logo.png'
+import floppyCodeIcon from '@/assets/project-icons/FloppyCode logo.png'
+import flashCardIcon from '@/assets/project-icons/FlashCards logo.png'
+import codexIcon from '@/assets/project-icons/CODEX logo.png'
+import examinaIcon from '@/assets/project-icons/examina logo.png'
+
+
 
 
 const startMenu = ref(null)
@@ -55,7 +64,7 @@ const projectModal = ref(null)
   const folders = [
     { name: 'Projects', icon: 'https://cdn-icons-png.flaticon.com/512/716/716784.png'},  /* title="folder icons">Folder icons created by kmg design - Flaticon */
     { name: 'About Me', icon: 'https://cdn-icons-png.flaticon.com/512/4021/4021693.png'},  /* title="folder icons">Folder icons created by kmg design - Flaticon */
-    { name: 'Contact', icon: 'https://cdn-icons-png.flaticon.com/512/716/716784.png'},  /* title="folder icons">Folder icons created by kmg design - Flaticon */
+    { name: 'Contact', icon: 'https://cdn-icons-png.flaticon.com/128/2374/2374449.png'},  /* title="folder icons">Folder icons created by kmg design - Flaticon */
   ]
 
   // Toggle Start Menu
@@ -76,19 +85,50 @@ setInterval(() => {
   currentTime.value = new Date().toLocaleTimeString()
 }, 1000)
 
-// Sample Project Data
+// Project Data
+/*
+~text-based medical data system
+~recreation of sports section of john abbott website
+~excuses API
+*/
 const projectList = [
-  {
+{
     name: 'Portfolio Website',
-    icon: 'https://cdn-icons-png.flaticon.com/512/1071/1071523.png',
+    icon: 'https://cdn-icons-png.flaticon.com/128/232/232411.png',
     link: 'https://github.com/yourusername/portfolio'
   },
   {
-    name: 'Todo App',
-    icon: 'https://cdn-icons-png.flaticon.com/512/1027/1027687.png',
-    link: 'https://yourprojecturl.com/todo'
+    name: 'Examina',
+    icon:  examinaIcon,
+    link: 'https://github.com/yourusername/portfolio'
+  },
+  {
+    name: 'CODEX',
+    icon: codexIcon,
+    link: 'https://github.com/yourusername/portfolio'
+  },
+  {
+    name: 'DragonNotes',
+    icon: 'https://cdn-icons-png.flaticon.com/128/669/669250.png',
+    link: 'https://github.com/yourusername/dragonNotes'
+  },
+  {
+    name: 'Clonify',
+    icon: clonifyIcon,
+    link: 'https://github.com/yourusername/clonify'
+  },
+  {
+    name: 'Floppy Code',
+    icon: floppyCodeIcon,
+    link: 'https://github.com/yourusername/floppybirds'
+  },
+  {
+    name: 'Flash Card App',
+    icon: flashCardIcon,
+    link: 'https://github.com/yourusername/flashcardapp'
   }
 ]
+
 
 // Open the Projects Modal
 const openFolder = (folder) => {
@@ -107,7 +147,6 @@ const openFolder = (folder) => {
     height: 100vh;
     display: flex;
     flex-direction: column;
-
     align-items: stretch;
     justify-content: space-between;
     background: url('https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png') no-repeat center center/cover;
@@ -125,7 +164,7 @@ const openFolder = (folder) => {
     gap: 3rem;
     max-width: 1200px;
     padding: 2rem;
-    justify-items: start;  /* Align icons to the left */
+    justify-items: start;
 
   }
   
@@ -149,7 +188,7 @@ const openFolder = (folder) => {
   /* ..............................TASKBAR */
   .taskbar {
     width: 100%;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 0;
     height: 39.5px;
