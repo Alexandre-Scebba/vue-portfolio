@@ -6,6 +6,7 @@
           <p>{{ folder.name }}</p>
         </div>
       </div>
+      
 
   <!-- Attribution Below the Grid -->
   <div class="attribution">
@@ -40,6 +41,7 @@
    <!-- Project Modal (Folder View) -->
    <ProjectModal ref="projectModal" :folderName="'Projects'" :projects="projectList" />
    <AboutModal ref="aboutModal" /> 
+   <EmailConfirmModal ref="emailModal" />
   </div>
 </template>
   
@@ -49,7 +51,7 @@ import { ref } from 'vue'
 import StartMenu from './StartMenu.vue'
 import ProjectModal from './ProjectModal.vue'
 import AboutModal from './AboutModal.vue'
-
+import EmailConfirmModal from './EmailConfirmModal.vue'
 
 import clonifyIcon from '@/assets/project-icons/Clonify logo.png'
 import floppyCodeIcon from '@/assets/project-icons/FloppyCode logo.png'
@@ -59,17 +61,36 @@ import examinaIcon from '@/assets/project-icons/examina logo.png'
 
 
 
-
 const startMenu = ref(null)
 const projectModal = ref(null)
 const aboutModal = ref(null)
+const emailModal = ref(null)
 
 
   const folders = [
     { name: 'Projects', icon: 'https://cdn-icons-png.flaticon.com/512/716/716784.png'},  /* title="folder icons">Folder icons created by kmg design - Flaticon */
     { name: 'About Me', icon: 'https://cdn-icons-png.flaticon.com/512/4021/4021693.png'},  /* title="folder icons">Folder icons created by kmg design - Flaticon */
     { name: 'Contact', icon: 'https://cdn-icons-png.flaticon.com/128/2374/2374449.png'},  /* title="folder icons">Folder icons created by kmg design - Flaticon */
+    { name: 'C.V.', icon: 'https://cdn-icons-png.flaticon.com/128/14180/14180779.png'},  /* title="folder icons">Folder icons created by kmg design - Flaticon */
   ]
+
+
+  const translations = {
+  EN: {
+    'Projects': 'Projects',
+    'About Me': 'About Me',
+    'Contact': 'Contact',
+    'C.V.': 'C.V.',
+  },
+  FR: {
+    'Projects': 'Projets',
+    'About Me': 'À propos de moi',
+    'Contact': 'Contact',
+    'C.V.': 'C.V.',
+  }
+};
+
+
 
   // Toggle Start Menu
 const toggleStart = () => {
@@ -81,6 +102,10 @@ const currentLanguage = ref('EN')
 const toggleLanguage = () => {
   currentLanguage.value = currentLanguage.value === 'EN' ? 'FR' : 'EN'
 }
+
+
+
+
 
 const currentTime = ref(new Date().toLocaleTimeString())
 
@@ -142,8 +167,14 @@ const openFolder = (folder) => {
   if (folder.name === 'About Me') {
   aboutModal.value.openModal()
   }
-}
 
+  if (folder.name === 'Contact') {
+    emailModal.value.openModal()
+}
+  if (folder.name === 'C.V.') {
+    window.open('/A.Scebba CV 2024.pdf', '_blank');
+  }
+}
 
   </script>
   

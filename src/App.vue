@@ -1,10 +1,12 @@
 <template>
+    <div class="crt-container">
   <div class="screen-frame">
     <div class="screen-inner">
       <audio id="startup-sound" src="@/assets/crt-computer-monitor-startup.wav"></audio>
       <Desktop />
     </div>
   </div>
+</div>
 </template>
 
 <script setup>
@@ -22,12 +24,33 @@ onMounted(() => {
 </script>
 
 <style scoped>
+
+.crt-container {
+  position: absolute;
+  top: 52%;
+  left: 57%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 1600px; /* Limits CRT width */
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
 .screen-frame {
   position: relative;
   width: 90vw;  /* Use viewport width for scaling */
-  max-width: 1400px;  /* Set max size for large screens */
+  
+  max-width: 95%;
+  max-height: 85%;
+  overflow: hidden;
+
+  transform: translate(-9%, -3%);
+
   aspect-ratio: 16 / 10;  /* Maintain CRT-like aspect ratio */
-  height: auto;  /* Height scales automatically based on aspect ratio */
+  height: auto;
   margin: 2rem auto;
   background: url('@/assets/screen border.png') no-repeat center center;
   background-size: 100% 100%;  /* Stretch to fit within .screen-frame */
