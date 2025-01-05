@@ -24,12 +24,13 @@ onMounted(() => {
 <style scoped>
 .screen-frame {
   position: relative;
-  width: 100%;
-  max-width: 1600px;
-  height: 95vh;
+  width: 90vw;  /* Use viewport width for scaling */
+  max-width: 1400px;  /* Set max size for large screens */
+  aspect-ratio: 16 / 10;  /* Maintain CRT-like aspect ratio */
+  height: auto;  /* Height scales automatically based on aspect ratio */
   margin: 2rem auto;
   background: url('@/assets/screen border.png') no-repeat center center;
-  background-size: 1250px 768px;
+  background-size: 100% 100%;  /* Stretch to fit within .screen-frame */
   border: 10px solid #333;
   border-radius: 15px;
   box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 255, 0, 0.3) inset;
@@ -40,15 +41,26 @@ onMounted(() => {
 
 .screen-inner {
   width: 78%;
-  height: 73%;
+  height: 76%;
   background: #000;
   border: 1px solid #666;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
   overflow: hidden;
   position: relative;
-  bottom: 1.5%;
+  bottom: 1.6%;
   left: 0.2%;
+  aspect-ratio: 4 / 3;  /* Traditional aspect ratio? */
 }
+
+@media (max-width: 768px) {
+  .screen-frame {
+    width: 95vw;  /* Scale down for mobile or small screens */
+  }
+  .screen-inner {
+    width: 90%;
+    height: 65%;
+  }
+}
+
 
 @keyframes screenFlicker {
   0% {

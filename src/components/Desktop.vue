@@ -39,6 +39,7 @@
 
    <!-- Project Modal (Folder View) -->
    <ProjectModal ref="projectModal" :folderName="'Projects'" :projects="projectList" />
+   <AboutModal ref="aboutModal" /> 
   </div>
 </template>
   
@@ -47,6 +48,8 @@
 import { ref } from 'vue'
 import StartMenu from './StartMenu.vue'
 import ProjectModal from './ProjectModal.vue'
+import AboutModal from './AboutModal.vue'
+
 
 import clonifyIcon from '@/assets/project-icons/Clonify logo.png'
 import floppyCodeIcon from '@/assets/project-icons/FloppyCode logo.png'
@@ -59,6 +62,7 @@ import examinaIcon from '@/assets/project-icons/examina logo.png'
 
 const startMenu = ref(null)
 const projectModal = ref(null)
+const aboutModal = ref(null)
 
 
   const folders = [
@@ -100,17 +104,17 @@ const projectList = [
   {
     name: 'Examina',
     icon:  examinaIcon,
-    link: 'https://github.com/yourusername/portfolio'
+    link: 'https://examina2-cvaehchtdtd4epap.canadaeast-01.azurewebsites.net/'
   },
   {
     name: 'CODEX',
     icon: codexIcon,
-    link: 'https://github.com/yourusername/portfolio'
+    link: 'https://github.com/vvaraksn/SnippetManager'
   },
   {
     name: 'DragonNotes',
     icon: 'https://cdn-icons-png.flaticon.com/128/669/669250.png',
-    link: 'https://github.com/yourusername/dragonNotes'
+    link: 'https://dragon-notes.vercel.app/'
   },
   {
     name: 'Clonify',
@@ -120,7 +124,7 @@ const projectList = [
   {
     name: 'Floppy Code',
     icon: floppyCodeIcon,
-    link: 'https://github.com/yourusername/floppybirds'
+    link: 'https://alexandre-scebba.github.io/FloppyCodePage/'
   },
   {
     name: 'Flash Card App',
@@ -130,10 +134,13 @@ const projectList = [
 ]
 
 
-// Open the Projects Modal
+// Open folder modal logic
 const openFolder = (folder) => {
   if (folder.name === 'Projects') {
     projectModal.value.openModal()
+  }
+  if (folder.name === 'About Me') {
+  aboutModal.value.openModal()
   }
 }
 
@@ -144,7 +151,7 @@ const openFolder = (folder) => {
   <style scoped>
   /* ..............................DESKTOP */
   .desktop {
-    height: 100vh;
+    min-height: clamp(600px, 90vh, 1000px);
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -161,7 +168,7 @@ const openFolder = (folder) => {
   .folder-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 3rem;
+    gap: clamp(0.5rem, 1.5vw, 2rem);
     max-width: 1200px;
     padding: 2rem;
     justify-items: start;
@@ -175,13 +182,19 @@ const openFolder = (folder) => {
   }
   
   .folder img {
-    width: 50px;
+    width: clamp(40px, 5vw, 70px);
     margin-bottom: 0.5rem;
   }
   
   .folder:hover {
     transform: scale(1.15);
   }
+
+  .folder p {
+  margin: 0;
+  font-size: clamp(0.8rem, 1vw, 1.2rem);
+}
+
 
 
 
@@ -191,14 +204,14 @@ const openFolder = (folder) => {
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 39.5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(to top, #1c5aa6, #2679c3);
-  padding: 0.5rem 1rem;
-  box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.5);
-  z-index: 10;  /* Keep above other content */
+    height: clamp(35px, 5vh, 50px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to top, #1c5aa6, #2679c3);
+    padding: 0.5rem 1rem;
+    box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.5);
+    z-index: 10;  /* Keep above other content */
 }
 
 .left-side {
@@ -217,15 +230,16 @@ const openFolder = (folder) => {
   border: 1px solid #2c761b;
   color: white;
   font-weight: bold;
-  padding: 0.5rem 1.5rem;
+  padding: clamp(0.3rem, 1vw, 0.5rem) clamp(1rem, 2vw, 1.5rem);
   cursor: pointer;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 17px;
+  border-top-left-radius: clamp(3px, 0.5vw, 6px);
+  border-bottom-left-radius: clamp(3px, 0.5vw, 6px);
+  border-top-right-radius: clamp(5px, 1vw, 12px);
+  border-bottom-right-radius: clamp(8px, 1vw, 17px);
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
-  font-size: 1rem;
+  font-size: clamp(0.8rem, 1vw, 1rem);
 }
+
 
 .taskbar button:hover {
   background: linear-gradient(to top, #51c33a, #63e045);
@@ -235,17 +249,18 @@ const openFolder = (folder) => {
 }
 
 .taskbar-divider {
-  width: 2px;
-  height: 30px;
+  width: clamp(1px, 0.3vw, 3px);
+  height: clamp(20px, 4vh, 40px);
   background-color: #135aa2;
-  margin: 0 10px;
+  margin: 0 clamp(5px, 1vw, 15px);
 }
+
 
 .taskbar-clock {
   color: white;
   margin-left: auto;
-  margin-right: 1rem;
-  font-size: 1rem;
+  margin-right: clamp(0.5rem, 1vw, 1.5rem);
+  font-size: clamp(0.8rem, 1vw, 1rem);
   font-family: 'Courier New', Courier, monospace;
   white-space: nowrap;
 }
@@ -255,18 +270,19 @@ const openFolder = (folder) => {
 
 
 
+
   /* ..............................ATTRIBUTIONS */
 
   .attribution {
-    position: absolute;
-  bottom: 60px;
-  right: 20px;
-
+  position: absolute;
+  bottom: clamp(40px, 5vh, 80px);
+  right: clamp(10px, 2vw, 30px);
   text-align: center;
-  margin-top: 2rem;
-  font-size: 0.9rem;
+  margin-top: 1rem;
+  font-size: clamp(0.7rem, 1vw, 1rem);
   color: #bbb;
 }
+
 
 .attribution a {
   color: #bbb;

@@ -10,22 +10,32 @@
       class="project-item"
       v-for="project in projects"
       :key="project.name"
+      @mouseenter="showTooltip(project, $event)"
+      @mouseleave="hideTooltip"
       @click="openProject(project.link)"
     >
       <img :src="project.icon" alt="Project icon" />
       <p>{{ project.name }}</p>
     </div>
   </div>
-</div>
 
+      <!-- Tooltip -->
+  <div v-if="tooltip.visible" 
+       class="tooltip"
+       :style="{ top: tooltip.y + 'px', left: tooltip.x + 'px' }">
+    <p>{{ tooltip.text }}</p>
+  </div>
+</div>
   </template>
   
+
+
   ```javascript
   <script setup>
   import { ref, defineProps } from 'vue'
   
-  const modalTop = ref(150)
-const modalLeft = ref(400)
+const modalTop = ref(120)
+const modalLeft = ref(140)
 const dragging = ref(false)
 const offsetX = ref(0)
 const offsetY = ref(0)
@@ -67,6 +77,31 @@ const stopDrag = () => {
     isOpen.value = false
   }
 
+
+  const adjustModalSize = () => {
+  const modal = document.querySelector('.project-modal');
+  if (modal) {
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    // Scale modal based on screen width
+    if (screenWidth < 600) {
+      modal.style.width = '90%';
+      modal.style.height = '70%';
+      modal.style.left = '5%';
+      modal.style.top = '15%';
+    } else {
+      modal.style.width = '60%';
+      modal.style.height = '60%';
+      modal.style.left = '20%';
+      modal.style.top = '10%';
+    }
+  }
+};
+// listen for window resize
+window.addEventListener('resize', adjustModalSize);
+
+
 //escape key handling TODO
 
   
@@ -75,6 +110,85 @@ const stopDrag = () => {
   }
   
   defineExpose({ openModal })
+
+
+  //hover tooltip logic
+  const tooltip = ref({
+  visible: false,
+  text: '',
+  x: 0,
+  y: 0
+})
+
+  
+  const showTooltip = (project, event) => {
+
+  const modalRect = event.currentTarget.closest('.project-modal').getBoundingClientRect();
+  const screenRect = document.querySelector('.desktop').getBoundingClientRect();
+
+  // Temporarily show tooltip to measure its size
+  tooltip.value.text = getProjectInfo(project.name);
+  tooltip.value.visible = true;
+
+  requestAnimationFrame(() => {
+    const tooltipEl = document.querySelector('.tooltip');
+    const tooltipWidth = tooltipEl.offsetWidth;
+    const tooltipHeight = tooltipEl.offsetHeight;
+
+    let x = event.clientX - screenRect.left + 15;
+    let y = event.clientY - screenRect.top + 15;
+
+    // Prevent overflow right
+    if (x + tooltipWidth > screenRect.width) {
+      x = screenRect.width - tooltipWidth - 15;
+    }
+    
+    // Prevent overflow left
+    if (x < 0) {
+      x = 15;
+    }
+    
+    // Prevent overflow bottom
+    if (y + tooltipHeight > screenRect.height) {
+      y = screenRect.height - tooltipHeight - 15;
+    }
+    
+    // Prevent overflow top
+    if (y < 0) {
+      y = 15;
+    }
+
+    tooltip.value.x = x;
+    tooltip.value.y = y;
+  });
+};
+
+
+const hideTooltip = () => {
+  tooltip.value.visible = false
+}
+
+const getProjectInfo = (projectName) => {
+  switch (projectName) {
+    case 'Portfolio Website':
+      return 'A portfolio showcasing my development skills and projects.';
+    case 'Examina':
+      return 'A C#-based exam management web app for teachers and students.';
+    case 'CODEX':
+      return 'Snippet Manager built in C# to organize and store code snippets.';
+    case 'DragonNotes':
+      return 'Voice note app using the MERN stack and Web Speech API.';
+    case 'Clonify':
+      return 'Spotify clone using React and Node.js for learning purposes.';
+    case 'Floppy Code':
+      return 'Flappy Bird clone in HTML5 and JavaScript.';
+    case 'Flash Card App':
+      return 'Flashcard app to help with learning and studying.';
+    default:
+      return 'No additional information available.';
+  }
+}
+
   </script>
   
   <style scoped>
@@ -93,6 +207,11 @@ const stopDrag = () => {
     flex-direction: column;
     overflow: hidden;
     cursor: grab;
+
+    overflow: hidden;
+    max-width: 800px;
+    min-width: 300px;
+    max-height: 90vh;
   }
 
   .project-modal:active {
@@ -121,7 +240,26 @@ const stopDrag = () => {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     gap: 1.5rem;
     padding: 1rem;
+    overflow-y: auto;
+    flex-grow: 1;
+    max-height: 100%;
   }
+
+  /* modal scaling for smaller screens */
+@media (max-width: 768px) {
+  .project-modal {
+    width: 90%;
+    height: 70%;
+    left: 5%;
+    top: 15%;
+  }
+  
+  .project-grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* Smaller icons on mobile */
+  }
+}
+
+  
   
 
   .project-item {
@@ -169,8 +307,27 @@ const stopDrag = () => {
   color: white;
   border-color: azure;
   border-width: 2px;
-
 }
+
+.tooltip {
+  position: fixed;
+  background-color: yellow;
+  color: black;
+  padding: 0.5rem 1rem;
+  border: 1px solid #333;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  pointer-events: none;  /* prevent blocking clicks */
+  font-size: 0.9rem;
+  z-index: 100;
+
+  white-space: normal;
+  max-width: 250px;
+  max-height: 150px;
+  overflow: auto;
+  text-overflow: ellipsis;
+}
+
 
   </style>
   
