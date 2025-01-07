@@ -1,16 +1,52 @@
 <template>
   <div class="start-menu" v-if="isOpen">
     <ul>
-      <li @click="navigate('Projects')">📂 Projects</li>
-      <li @click="navigate('About')">👤 About Me</li>
-      <li @click="navigate('Contact')">📞 Contact</li>
-      <li @click="navigate('Settings')">⚙️ Settings</li>
+      <li @click="navigate('Linkedin')"> ℹ️ Linkedin</li> 
+      <li @click="navigate('Github')"> 🌐 GitHub</li>
+      <li @click="triggerFakeBSOD"> ⚠️ Fake BSOD</li>
     </ul>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import bsodImage from '/src/assets/Windows_9X_BSOD.png';
+
+// Define BSOD function
+const FakeBSOD = () => {
+  console.log(bsodImage);
+
+  const bsod = document.createElement('div');
+  bsod.style.position = 'fixed';
+  bsod.style.top = 0;
+  bsod.style.left = 0;
+  bsod.style.width = '100vw';
+  bsod.style.height = '100vh';
+  bsod.style.background = `url(${bsodImage}) no-repeat center center`;
+  bsod.style.backgroundSize = 'cover';
+  bsod.style.zIndex = 9999;
+  bsod.style.pointerEvents = 'all';
+  bsod.id = 'bsod-screen';
+
+  document.body.appendChild(bsod);
+
+  // Remove on keypress or click
+  const removeBSOD = () => {
+    const screen = document.getElementById('bsod-screen');
+    if (screen) {
+      document.body.removeChild(screen);
+      document.removeEventListener('keydown', removeBSOD);
+      document.removeEventListener('click', removeBSOD);
+    }
+  };
+
+  document.addEventListener('keydown', removeBSOD);
+  document.addEventListener('click', removeBSOD);
+};
+
+const triggerFakeBSOD = () => {
+  FakeBSOD();
+};
 
 const isOpen = ref(false)
 

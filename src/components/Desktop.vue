@@ -9,13 +9,14 @@
       
 
   <!-- Attribution Below the Grid -->
-  <div class="attribution">
-      <p>
-        <a href="https://www.flaticon.com/free-icons/folder" title="folder icons">
-          Folder icons created by kmg design - Flaticon
-        </a>
-      </p>
-    </div>
+<div class="attribution">
+  <p>
+    <a href="https://www.flaticon.com/free-icons/folder" title="folder icons">
+      {{ translations[currentLanguage].Attribution }}
+    </a>
+  </p>
+</div>
+
      <!-- Start Menu Component -->
      <StartMenu ref="startMenu" />
 
@@ -23,7 +24,7 @@
 <div class="screen-inner">
 <footer class="taskbar">
   <div class="left-side">
-    <button @click="toggleStart">🪟 Start</button>
+    <button @click="toggleStart">{{ translations[currentLanguage].Start }}</button>
     <div class="taskbar-divider"></div>
   </div>
 
@@ -40,8 +41,8 @@
 
    <!-- Project Modal (Folder View) -->
    <ProjectModal ref="projectModal" :folderName="'Projects'" :projects="projectList" />
-   <AboutModal ref="aboutModal" /> 
-   <EmailConfirmModal ref="emailModal" />
+   <AboutModal :currentLanguage="currentLanguage" ref="aboutModal" />
+   <EmailConfirmModal :currentLanguage="currentLanguage" ref="emailModal" />
   </div>
 </template>
   
@@ -66,29 +67,52 @@ const projectModal = ref(null)
 const aboutModal = ref(null)
 const emailModal = ref(null)
 
+// EN/FR logic 
+const currentLanguage = ref('EN')
 
-  const folders = [
-    { name: 'Projects', icon: 'https://cdn-icons-png.flaticon.com/512/716/716784.png'},  /* title="folder icons">Folder icons created by kmg design - Flaticon */
-    { name: 'About Me', icon: 'https://cdn-icons-png.flaticon.com/512/4021/4021693.png'},  /* title="folder icons">Folder icons created by kmg design - Flaticon */
-    { name: 'Contact', icon: 'https://cdn-icons-png.flaticon.com/128/2374/2374449.png'},  /* title="folder icons">Folder icons created by kmg design - Flaticon */
-    { name: 'C.V.', icon: 'https://cdn-icons-png.flaticon.com/128/14180/14180779.png'},  /* title="folder icons">Folder icons created by kmg design - Flaticon */
-  ]
-
-
-  const translations = {
+const translations = {
   EN: {
-    'Projects': 'Projects',
-    'About Me': 'About Me',
-    'Contact': 'Contact',
-    'C.V.': 'C.V.',
+    Start: 'Start',
+    Projects: 'Projects',
+    AboutMe: 'About Me',
+    Contact: 'Contact',
+    CV: 'C.V.',
+    Attribution: 'Folder icons created by kmg design - Flaticon'
   },
   FR: {
-    'Projects': 'Projets',
-    'About Me': 'À propos de moi',
-    'Contact': 'Contact',
-    'C.V.': 'C.V.',
+    Start: 'Démarrer',
+    Projects: 'Projets',
+    AboutMe: 'À propos de moi',
+    Contact: 'Contactez-moi',
+    CV: 'C.V.',
+    Attribution: 'Icônes de dossier créées par kmg design - Flaticon'
   }
-};
+}
+
+// Reactive Folders
+const folders = ref([
+  { key: 'Projects', icon: 'https://cdn-icons-png.flaticon.com/512/716/716784.png' },
+  { key: 'AboutMe', icon: 'https://cdn-icons-png.flaticon.com/512/4021/4021693.png' },
+  { key: 'Contact', icon: 'https://cdn-icons-png.flaticon.com/128/2374/2374449.png' },
+  { key: 'CV', icon: 'https://cdn-icons-png.flaticon.com/128/14180/14180779.png' }
+])
+
+// Function to Update Folder Names Based on Language
+const updateFolderNames = () => {
+  folders.value = folders.value.map(folder => ({
+    ...folder,
+    name: translations[currentLanguage.value][folder.key]
+  }))
+}
+
+// Initialize the folder names
+updateFolderNames()
+
+// Toggle Language and Update
+const toggleLanguage = () => {
+  currentLanguage.value = currentLanguage.value === 'EN' ? 'FR' : 'EN'
+  updateFolderNames()
+}
 
 
 
@@ -97,11 +121,6 @@ const toggleStart = () => {
   startMenu.value.toggleMenu()
 }
 
-// Language Toggle (EN/FR)
-const currentLanguage = ref('EN')
-const toggleLanguage = () => {
-  currentLanguage.value = currentLanguage.value === 'EN' ? 'FR' : 'EN'
-}
 
 
 
@@ -164,15 +183,19 @@ const openFolder = (folder) => {
   if (folder.name === 'Projects') {
     projectModal.value.openModal()
   }
-  if (folder.name === 'About Me') {
-  aboutModal.value.openModal()
+  if (folder.name === translations[currentLanguage.value].AboutMe) {
+    aboutModal.value.openModal()
   }
 
-  if (folder.name === 'Contact') {
+  if (folder.name === translations[currentLanguage.value].Contact) {
     emailModal.value.openModal()
 }
-  if (folder.name === 'C.V.') {
-    window.open('/A.Scebba CV 2024.pdf', '_blank');
+ if (folder.name === 'C.V.') {
+    const cvFile = currentLanguage.value === 'FR' ? 
+      '/Alex Scebba CV 2025-FR.pdf' : 
+      '/Alex Scebba CV 2025-EN.pdf';
+      
+    window.open(cvFile, '_blank');
   }
 }
 
@@ -224,6 +247,10 @@ const openFolder = (folder) => {
   .folder p {
   margin: 0;
   font-size: clamp(0.8rem, 1vw, 1.2rem);
+  color: white;
+  text-shadow: 1px 1px 2px black, 0 0 1px rgba(0, 0, 0, 0.8); /* black outline */
+  font-weight: normal;
+  font-family: 'Tahoma', sans-serif;  /* classic XP-style font */
 }
 
 

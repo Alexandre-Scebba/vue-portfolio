@@ -7,6 +7,14 @@
     </div>
   </div>
 </div>
+<div
+    style="
+      width: 200px;
+      height: 200px;
+      background: url('/src/assets/Windows_9X_BSOD.png') no-repeat center center;
+      background-size: cover;
+    "
+  ></div>
 </template>
 
 <script setup>

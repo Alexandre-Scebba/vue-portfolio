@@ -1,21 +1,48 @@
 <template>
     <div class="confirm-modal" v-if="isOpen">
       <div class="modal-header">
-        <p>Confirm Action</p>
+        <p> {{t.title}} </p>
       </div>
       <div class="modal-body">
-        <p>Launch your email client to send a message?</p>
+        <p> {{t.body  }} </p>
       </div>
       <div class="modal-footer">
-        <button @click="confirmEmail">Yes</button>
-        <button @click="closeModal">No</button>
+        <button @click="confirmEmail"> {{t.yes}} </button>
+        <button @click="closeModal"> {{t.no}} </button>
       </div>
     </div>
   </template>
   
   <script setup>
-  import { ref, defineExpose } from 'vue'
-  
+import { ref, defineExpose, defineProps, computed, watch } from 'vue'
+
+const props = defineProps({
+  currentLanguage: {
+    type: String,
+    default: 'EN'
+  }
+})
+
+  const translations = {
+  EN: {
+    title: 'Confirm Action',
+    body: 'Launch your email client to send a message?',
+    yes: 'Yes',
+    no: 'No'
+  },
+  FR: {
+    title: 'Confirmer l\'action',
+    body: 'Lancer votre client de messagerie pour envoyer un message ?',
+    yes: 'Oui',
+    no: 'Non'
+  }
+}
+const t = computed(() => translations[props.currentLanguage])
+watch(() => props.currentLanguage, (newLang) => {
+  t.value = translations[newLang]
+})
+
+
   const isOpen = ref(false)
   
   const openModal = () => {
