@@ -17,6 +17,13 @@
       <img :src="project.icon" alt="Project icon" />
       <p>{{ project.name }}</p>
     </div>
+       <!-- BSOD Overlay -->
+       <div v-if="showBSOD" class="bsod-overlay" @click="dismissBSOD" @keydown="dismissBSOD" tabindex="0">
+      <p class="bsod-text">
+        A problem has been detected and your system has been shut down to prevent damage...
+      </p>
+      <p class="bsod-instructions">Press any key or click to continue...</p>
+    </div>
   </div>
 
       <!-- Tooltip -->
@@ -189,6 +196,23 @@ const getProjectInfo = (projectName) => {
   }
 }
 
+
+// State for BSOD overlay
+const showBSOD = ref(false);
+
+// Function to handle project clicks
+const handleProjectClick = (project) => {
+  if (project.name === "Portfolio Website") {
+    showBSOD.value = true; // Show the BSOD overlay
+  } else {
+    window.open(project.link, "_blank"); // Open link for other projects
+  }
+};
+
+// Dismiss the BSOD
+const dismissBSOD = () => {
+  showBSOD.value = false; // Hide the BSOD overlay
+};
   </script>
   
   <style scoped>
@@ -329,5 +353,34 @@ const getProjectInfo = (projectName) => {
 }
 
 
+/* BSOD Overlay */
+.bsod-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000080; /* BSOD blue */
+  color: white;
+  font-family: "Courier New", monospace;
+  font-size: 16px;
+  line-height: 1.5;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.bsod-text {
+  max-width: 80%;
+  margin-bottom: 1rem;
+}
+
+.bsod-instructions {
+  font-size: 14px;
+  font-style: italic;
+}
   </style>
   

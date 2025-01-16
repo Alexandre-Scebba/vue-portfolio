@@ -32,6 +32,7 @@
     <div class="language-switch">
       <button @click="toggleLanguage">{{ currentLanguage }}</button>
     </div>
+    <div class="taskbar-divider"></div>
     <div class="taskbar-clock">
       {{ currentTime }}
     </div>
@@ -143,7 +144,7 @@ const projectList = [
 {
     name: 'Portfolio Website',
     icon: 'https://cdn-icons-png.flaticon.com/128/232/232411.png',
-    link: 'https://github.com/yourusername/portfolio'
+    link: 'https://alex-scebba-portfolio.vercel.app/'
   },
   {
     name: 'Examina',
@@ -173,7 +174,7 @@ const projectList = [
   {
     name: 'Flash Card App',
     icon: flashCardIcon,
-    link: 'https://github.com/yourusername/flashcardapp'
+    link: 'https://github.com/Alexandre-Scebba/flashcard-app'
   }
 ]
 
@@ -267,7 +268,7 @@ const openFolder = (folder) => {
     justify-content: space-between;
     align-items: center;
     background: linear-gradient(to top, #1c5aa6, #2679c3);
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0;
     box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.5);
     z-index: 10;  /* Keep above other content */
 }

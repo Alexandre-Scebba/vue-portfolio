@@ -7,14 +7,6 @@
     </div>
   </div>
 </div>
-<div
-    style="
-      width: 200px;
-      height: 200px;
-      background: url('/src/assets/Windows_9X_BSOD.png') no-repeat center center;
-      background-size: cover;
-    "
-  ></div>
 </template>
 
 <script setup>
@@ -68,6 +60,11 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.screen-frame,
+.crt-container {
+  overflow: visible !important;  /* Allow BSOD to break out of the container */
 }
 
 .screen-inner {
@@ -126,5 +123,11 @@ onMounted(() => {
   opacity: 0;
   animation-fill-mode: forwards;
 }
+
+#bsod-screen {
+  display: block !important;
+  opacity: 1 !important;
+}
+
 
 </style>

@@ -10,22 +10,24 @@
 
 <script setup>
 import { ref } from 'vue'
-import bsodImage from '/src/assets/Windows_9X_BSOD.png';
 
 // Define BSOD function
 const FakeBSOD = () => {
-  console.log(bsodImage);
-
+  
   const bsod = document.createElement('div');
   bsod.style.position = 'fixed';
-  bsod.style.top = 0;
-  bsod.style.left = 0;
+  bsod.style.top = 300;
+  bsod.style.left = 200;
   bsod.style.width = '100vw';
   bsod.style.height = '100vh';
-  bsod.style.background = `url(${bsodImage}) no-repeat center center`;
+  bsod.style.display = 'flex';
+  bsod.style.alignItems = 'center';
+  bsod.style.justifyContent = 'center';
+  bsod.style.background = "url('/Windows_9X_BSOD.png') no-repeat center center";
   bsod.style.backgroundSize = 'cover';
-  bsod.style.zIndex = 9999;
+  bsod.style.zIndex = 999;
   bsod.style.pointerEvents = 'all';
+  bsod.style.transform = 'none';  // Prevent container transforms from affecting BSOD
   bsod.id = 'bsod-screen';
 
   document.body.appendChild(bsod);
