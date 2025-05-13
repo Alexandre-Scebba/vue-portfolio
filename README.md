@@ -1,7 +1,7 @@
 ENG:
 # 🖥️ Vue-Portfolio (CRT Edition)
 
-> Booting up nostalgia…then leveling up to a clean scrollable portfolio.
+> Booting up nostalgia… then leveling up to a clean scrollable portfolio.
 
 ## 🚀 Live Demo
 👉 https://alex-scebba-portfolio.vercel.app/  
@@ -11,7 +11,10 @@ Step into an interactive, faux-CRT XP interface:
 - 🪟 A mock Windows XP desktop with clickable icons & Start menu  
 - 📂 “My Projects” folder linking to hosted demos & GitHub repos  
 - 💬 A subtle “About Me” blurb window  
-- 🔴 [BSOD Button™](#) (currently under construction—blue screens incoming)  
+- 🔴 [BSOD Button™](#) (currently under construction—blue screens incoming)
+
+  ## 📸 Screenshots
+![CRT Desktop](https://github.com/user-attachments/assets/72b010c7-a51c-4ded-80cd-fe8dbb289933)
 
 If you’d rather skip the retro spiel, just **scroll down**: the CRT fades into classic anchor-style navigation for straight-up readability.
 
@@ -26,37 +29,14 @@ If you’d rather skip the retro spiel, just **scroll down**: the CRT fades into
 - `npm install` – install deps  
 - `npm run dev` – launch dev server  
 - `npm run build` – type-check + build for production  
-- `npm run preview` – preview prod build  
-
-## 📸 Screenshots
-![CRT Desktop](./screenshots/crt-desktop.png)  
-![Scroll Fallback](./screenshots/vanilla-portfolio.png)  
-
-*(Drop your actual screenshots into `/screenshots` and update these paths.)*
-
+- `npm run preview` – preview prod build
+- **Access at:** `http://localhost:5173`
+ 
 ## 💡 Features
 - **Interactive Icons:** Launch project demos or GitHub pages  
 - **Start Menu:** Quick links to contact, resume, LinkedIn  
 - **BSOD Button™:** Easter-egg in progress—trigger your own “blue screen of death”  
 - **Dual Experience:** Retro desktop → Scroll-down vanilla portfolio  
-
-## ⚙️ Running Locally
-1. Clone repo  
-   ```bash
-   git clone https://github.com/Alexandre-Scebba/vue-portfolio.git
-   cd vue-portfolio
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Fire it up
-   ```bash
-   npm run dev
-   ```
-4. Open browser at http://localhost:5173
 
 🛠️ Future Improvements
 Fix BSOD Button™
@@ -64,6 +44,10 @@ Fix BSOD Button™
 -Animated CRT “scanlines” overlay
 
 ...Crafted with 💻, ☕, and a pinch of nostalgia.
+
+## 📸 Screenshots
+![CRT Desktop](https://github.com/user-attachments/assets/72b010c7-a51c-4ded-80cd-fe8dbb289933)
+
 
 FR:
 # 🖥️ Vue-Portfolio (édition CRT)
@@ -93,13 +77,8 @@ Si vous préférez passer l’introduction rétro, il suffit de **faire défiler
 - `npm install` – installe les dépendances  
 - `npm run dev` – lance le serveur de dev  
 - `npm run build` – vérification des types + build pour la production  
-- `npm run preview` – prévisualiser la build prod  
-
-## 📸 Captures d’écran
-![CRT Desktop](./screenshots/crt-desktop.png)  
-![Scroll Fallback](./screenshots/vanilla-portfolio.png)  
-
-*(Placez vos captures d’écran réelles dans `/screenshots` et mettez à jour ces chemins.)*
+- `npm run preview` – prévisualiser la build prod
+- **Disponible à :** `http://localhost:5173`
 
 ## 💡 Fonctionnalités
 - **Icônes interactives :** lancez des démos de projets ou des pages GitHub  
@@ -127,11 +106,9 @@ Si vous préférez passer l’introduction rétro, il suffit de **faire défiler
 
 
 🛠️ Améliorations futures
-Corriger le Bouton BSOD™
-
-Ajouter la navigation au clavier et des fonctionnalités d’accessibilité
-
-Superposition animée de « scanlines » CRT
+- Corriger le Bouton BSOD™
+- Ajouter la navigation au clavier et des fonctionnalités d’accessibilité
+- Superposition animée de « scanlines » CRT
 
 
    
