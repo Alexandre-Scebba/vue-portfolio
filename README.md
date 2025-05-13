@@ -1,4 +1,4 @@
-ENG:
+***ENG:***
 # 🖥️ Vue-Portfolio (CRT Edition)
 
 > Booting up nostalgia… then leveling up to a clean scrollable portfolio.
@@ -45,11 +45,7 @@ Fix BSOD Button™
 
 ...Crafted with 💻, ☕, and a pinch of nostalgia.
 
-## 📸 Screenshots
-![CRT Desktop](https://github.com/user-attachments/assets/72b010c7-a51c-4ded-80cd-fe8dbb289933)
-
-
-FR:
+***FR:***
 # 🖥️ Vue-Portfolio (édition CRT)
 
 > Démarrage de la nostalgie… puis passage à un portfolio épuré et défilant.
