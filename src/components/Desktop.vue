@@ -43,6 +43,7 @@
     <ProjectModal ref="projectModal" :folderName="'Projects'" :projects="projectList" />
     <AboutModal :currentLanguage="currentLanguage" ref="aboutModal" />
     <EmailConfirmModal :currentLanguage="currentLanguage" ref="emailModal" />
+    <CvModal v-if="showCv" :language="currentLanguage" @close="showCv = false" />
   </div>
 </template>
 
@@ -52,6 +53,7 @@ import StartMenu from './StartMenu.vue'
 import ProjectModal from './ProjectModal.vue'
 import AboutModal from './AboutModal.vue'
 import EmailConfirmModal from './EmailConfirmModal.vue'
+import CvModal from './CvModal.vue'
 
 import clonifyIcon from '@/assets/project-icons/Clonify logo.png'
 import floppyCodeIcon from '@/assets/project-icons/FloppyCode logo.png'
@@ -63,6 +65,7 @@ const startMenu = ref(null)
 const projectModal = ref(null)
 const aboutModal = ref(null)
 const emailModal = ref(null)
+const showCv = ref(false)
 
 // EN/FR logic
 const currentLanguage = ref('EN')
@@ -138,13 +141,13 @@ const projectList = [
   {
     name: 'Examina',
     icon: examinaIcon,
-    link: 'https://github.com/m1ndb0x/AppDev2Project',
+    link: 'https://github.com/Alexandre-Scebba/ExaminaProject',
     //'https://examina2-cvaehchtdtd4epap.canadaeast-01.azurewebsites.net/'
   },
   {
     name: 'CODEX',
     icon: codexIcon,
-    link: 'https://github.com/vvaraksn/SnippetManager',
+    link: 'https://github.com/Alexandre-Scebba/CodexSnippetManager',
   },
   {
     name: 'DragonNotes',
@@ -154,7 +157,7 @@ const projectList = [
   {
     name: 'Clonify',
     icon: clonifyIcon,
-    link: 'https://github.com/yourusername/clonify',
+    link: 'https://github.com/vvaraksn/frontend-clonify',
   },
   {
     name: 'Floppy Code',
@@ -181,10 +184,7 @@ const openFolder = (folder) => {
     emailModal.value.openModal()
   }
   if (folder.name === 'C.V.') {
-    const cvFile =
-      currentLanguage.value === 'FR' ? '/Alex Scebba CV 2025-FR.pdf' : '/Alex Scebba CV 2025-EN.pdf'
-
-    window.open(cvFile, '_blank')
+    showCv.value = true
   }
 }
 </script>
